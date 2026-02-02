@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Hapus Desain - PICU{% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto py-12">
+    <div class="bg-white rounded-2xl border border-dark-100 overflow-hidden">
+        <!-- Header -->
+        <div class="bg-red-50 px-6 py-4 border-b border-red-100">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-red-800">Hapus Desain</h1>
+                    <p class="text-sm text-red-600">Tindakan ini tidak dapat dibatalkan</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="p-6">
+            <!-- Design Preview -->
+            <div class="flex items-center gap-4 mb-6 p-4 bg-dark-50 rounded-xl">
+                <div class="w-20 h-20 bg-dark-200 rounded-xl overflow-hidden flex-shrink-0">
+                    {% if design.image %}
+                    <img src="{{ design.image }}" alt="{{ design.title }}" class="w-full h-full object-cover">
+                    {% else %}
+                    <div class="w-full h-full flex items-center justify-center text-3xl">🎨</div>
+                    {% endif %}
+                </div>
+                <div class="min-w-0">
+                    <p class="font-semibold text-dark-900 truncate">{{ design.title }}</p>
+                    <p class="text-sm text-dark-500">SKU: {{ design.sku }}</p>
+                    <span
+                        class="inline-block mt-1 px-2 py-0.5 text-xs font-medium rounded-full badge-{{ design.status }}">
+                        {{ design.get_status_display }}
+                    </span>
+                </div>
+            </div>
+
+            <p class="text-dark-600 mb-6">
+                Apakah Anda yakin ingin menghapus desain <strong>"{{ design.title }}"</strong>?
+                Desain ini akan dihapus secara permanen beserta semua data yang terkait.
+            </p>
+
+            <!-- Actions -->
+            <div class="flex gap-3">
+                <a href="{% url 'designs:detail' design.pk %}"
+                    class="flex-1 px-4 py-3 border border-dark-200 rounded-xl font-medium text-dark-700 text-center hover:bg-dark-50 transition-all">
+                    Batal
+                </a>
+                <form method="post" class="flex-1">
+                    {% csrf_token %}
+                    <button type="submit"
+                        class="w-full px-4 py-3 bg-red-600 text-white rounded-xl font-semibold hover:bg-red-700 transition-all">
+                        Ya, Hapus Desain
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

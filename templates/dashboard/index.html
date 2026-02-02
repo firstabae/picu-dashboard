@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+
+{% block title %}PICU - Platform Kreator Clothing Indonesia{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="relative overflow-hidden -mt-8 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 bg-gradient-to-br from-dark-900 via-dark-800 to-dark-900"></div>
+    <div class="absolute inset-0 opacity-10"
+        style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23ffffff&quot; fill-opacity=&quot;0.4&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');">
+    </div>
+
+    <div class="relative max-w-4xl mx-auto text-center">
+        <!-- Badge -->
+        <div
+            class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium mb-8">
+            <span class="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></span>
+            Platform Kreator #1 di Indonesia
+        </div>
+
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            Wujudkan Desainmu Jadi
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-primary-600">Produk
+                Nyata</span>
+        </h1>
+
+        <p class="text-lg md:text-xl text-dark-300 mb-10 max-w-2xl mx-auto">
+            Unggah desain clothing-mu, pilih produk, dan dapatkan penghasilan dari setiap penjualan.
+            Tanpa ribet produksi, tanpa modal besar.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'account_signup' %}"
+                class="btn-primary text-white px-8 py-4 rounded-xl text-lg font-semibold inline-flex items-center justify-center gap-2">
+                Mulai Gratis
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+            </a>
+            <a href="{% url 'account_login' %}"
+                class="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all">
+                Sudah Punya Akun
+            </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-8 mt-16 pt-8 border-t border-white/10">
+            <div>
+                <p class="text-3xl md:text-4xl font-bold text-white">500+</p>
+                <p class="text-dark-400 text-sm">Kreator Aktif</p>
+            </div>
+            <div>
+                <p class="text-3xl md:text-4xl font-bold text-white">2K+</p>
+                <p class="text-dark-400 text-sm">Desain Diupload</p>
+            </div>
+            <div>
+                <p class="text-3xl md:text-4xl font-bold text-white">10K+</p>
+                <p class="text-dark-400 text-sm">Produk Terjual</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- How It Works Section -->
+<div class="py-20">
+    <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-dark-900 mb-4">Cara Kerjanya</h2>
+        <p class="text-dark-500 text-lg max-w-2xl mx-auto">
+            Tiga langkah sederhana untuk mulai menghasilkan dari desain-mu
+        </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+        <!-- Step 1 -->
+        <div class="card-hover bg-white rounded-2xl p-8 border border-dark-100">
+            <div class="w-14 h-14 gradient-primary rounded-2xl flex items-center justify-center mb-6">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+            </div>
+            <div class="text-primary-500 font-bold text-sm mb-2">LANGKAH 1</div>
+            <h3 class="text-xl font-bold text-dark-900 mb-3">Upload Desain</h3>
+            <p class="text-dark-500">
+                Unggah file desainmu dalam format PNG atau JPG. Pilih produk yang cocok untuk desainmu.
+            </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="card-hover bg-white rounded-2xl p-8 border border-dark-100">
+            <div class="w-14 h-14 bg-dark-800 rounded-2xl flex items-center justify-center mb-6">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <div class="text-dark-500 font-bold text-sm mb-2">LANGKAH 2</div>
+            <h3 class="text-xl font-bold text-dark-900 mb-3">Review & Approve</h3>
+            <p class="text-dark-500">
+                Tim kami akan mereview desainmu. Jika disetujui, desain akan siap dijual.
+            </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="card-hover bg-white rounded-2xl p-8 border border-dark-100">
+            <div class="w-14 h-14 gradient-primary rounded-2xl flex items-center justify-center mb-6">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <div class="text-primary-500 font-bold text-sm mb-2">LANGKAH 3</div>
+            <h3 class="text-xl font-bold text-dark-900 mb-3">Dapatkan Komisi</h3>
+            <p class="text-dark-500">
+                Setiap produk dengan desainmu yang terjual, kamu dapat komisi langsung ke rekening.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Products Section -->
+<div class="py-20 bg-dark-50 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-dark-900 mb-4">Produk yang Tersedia</h2>
+            <p class="text-dark-500 text-lg">
+                Berbagai pilihan produk berkualitas untuk desainmu
+            </p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="bg-white rounded-2xl p-6 text-center card-hover border border-dark-100">
+                <div class="text-4xl mb-4">👕</div>
+                <h3 class="font-semibold text-dark-900">Kaos Premium</h3>
+                <p class="text-sm text-dark-500">Cotton Combed 30s</p>
+            </div>
+            <div class="bg-white rounded-2xl p-6 text-center card-hover border border-dark-100">
+                <div class="text-4xl mb-4">🧥</div>
+                <h3 class="font-semibold text-dark-900">Hoodie</h3>
+                <p class="text-sm text-dark-500">Fleece Premium</p>
+            </div>
+            <div class="bg-white rounded-2xl p-6 text-center card-hover border border-dark-100">
+                <div class="text-4xl mb-4">☕</div>
+                <h3 class="font-semibold text-dark-900">Mug</h3>
+                <p class="text-sm text-dark-500">Ceramic 11oz</p>
+            </div>
+            <div class="bg-white rounded-2xl p-6 text-center card-hover border border-dark-100">
+                <div class="text-4xl mb-4">🔑</div>
+                <h3 class="font-semibold text-dark-900">Keychain</h3>
+                <p class="text-sm text-dark-500">Acrylic Custom</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CTA Section -->
+<div class="py-20">
+    <div class="gradient-primary rounded-3xl p-12 md:p-16 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+            Siap Menjadi Kreator?
+        </h2>
+        <p class="text-white/80 text-lg mb-8 max-w-xl mx-auto">
+            Daftar sekarang dan mulai upload desain pertamamu. Gratis, tanpa biaya pendaftaran!
+        </p>
+        <a href="{% url 'account_signup' %}"
+            class="inline-flex items-center gap-2 bg-white text-primary-600 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-dark-50 transition-all">
+            Daftar Sekarang
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+        </a>
+    </div>
+</div>
+{% endblock %}

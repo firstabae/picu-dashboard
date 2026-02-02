@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Profil Saya - PICU{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <!-- Header -->
+    <div class="mb-8">
+        <h1 class="text-2xl md:text-3xl font-bold text-dark-900">Pengaturan Akun</h1>
+        <p class="text-dark-500 mt-1">Kelola informasi profil dan rekening Anda</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="bg-white rounded-2xl border border-dark-100 p-1 mb-6 flex">
+        <a href="{% url 'accounts:profile' %}"
+            class="flex-1 py-3 px-4 rounded-xl text-center font-medium transition-all bg-dark-900 text-white">
+            👤 Profil
+        </a>
+        <a href="{% url 'accounts:bank_info' %}"
+            class="flex-1 py-3 px-4 rounded-xl text-center font-medium transition-all text-dark-600 hover:bg-dark-50">
+            🏦 Informasi Bank
+        </a>
+    </div>
+
+    <!-- Profile Form -->
+    <div class="bg-white rounded-2xl border border-dark-100 p-6">
+        <form method="post" class="space-y-5">
+            {% csrf_token %}
+
+            <div>
+                <label for="id_full_name" class="block text-sm font-medium text-dark-700 mb-2">
+                    Nama Lengkap
+                </label>
+                <input type="text" name="full_name" id="id_full_name" value="{{ form.full_name.value|default:'' }}"
+                    class="w-full px-4 py-3 border border-dark-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all">
+            </div>
+
+            <div>
+                <label for="id_email" class="block text-sm font-medium text-dark-700 mb-2">
+                    Email
+                </label>
+                <input type="email" name="email" id="id_email" value="{{ form.email.value|default:'' }}" readonly
+                    class="w-full px-4 py-3 border border-dark-200 rounded-xl bg-dark-50 text-dark-500 cursor-not-allowed">
+                <p class="text-xs text-dark-400 mt-1">Email tidak dapat diubah</p>
+            </div>
+
+            <div>
+                <label for="id_phone" class="block text-sm font-medium text-dark-700 mb-2">
+                    No. WhatsApp
+                </label>
+                <input type="tel" name="phone" id="id_phone" value="{{ form.phone.value|default:'' }}"
+                    class="w-full px-4 py-3 border border-dark-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all">
+            </div>
+
+            <div>
+                <label for="id_instagram" class="block text-sm font-medium text-dark-700 mb-2">
+                    Link Instagram
+                </label>
+                <input type="url" name="instagram" id="id_instagram" value="{{ form.instagram.value|default:'' }}"
+                    placeholder="https://instagram.com/username"
+                    class="w-full px-4 py-3 border border-dark-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all">
+            </div>
+
+            <div class="pt-4">
+                <button type="submit" class="w-full btn-primary text-white py-3 rounded-xl font-semibold">
+                    Simpan Perubahan
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

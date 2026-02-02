@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ design.title }} - PICU{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto">
+    <!-- Back Button -->
+    <a href="{% url 'designs:list' %}"
+        class="inline-flex items-center gap-2 text-dark-500 hover:text-dark-700 mb-6 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Kembali ke daftar
+    </a>
+
+    <div class="grid lg:grid-cols-2 gap-8">
+        <!-- Image -->
+        <div class="bg-white rounded-2xl border border-dark-100 overflow-hidden">
+            <div class="aspect-square bg-dark-100">
+                {% if design.image %}
+                <img src="{{ design.image }}" alt="{{ design.title }}" class="w-full h-full object-contain">
+                {% else %}
+                <div class="w-full h-full flex items-center justify-center">
+                    <span class="text-8xl">🎨</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Details -->
+        <div class="space-y-6">
+            <!-- Header -->
+            <div class="bg-white rounded-2xl border border-dark-100 p-6">
+                <div class="flex items-start justify-between gap-4 mb-4">
+                    <h1 class="text-2xl font-bold text-dark-900">{{ design.title }}</h1>
+                    <span
+                        class="badge px-3 py-1.5 rounded-full text-sm font-semibold badge-{{ design.status }} whitespace-nowrap">
+                        {{ design.get_status_display }}
+                    </span>
+                </div>
+
+                {% if design.description %}
+                <p class="text-dark-600 mb-4">{{ design.description }}</p>
+                {% endif %}
+
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <p class="text-dark-500">SKU</p>
+                        <p class="font-mono font-medium text-dark-900">{{ design.sku }}</p>
+                    </div>
+                    <div>
+                        <p class="text-dark-500">Tanggal Upload</p>
+                        <p class="font-medium text-dark-900">{{ design.created_at|date:"d M Y, H:i" }}</p>
+                    </div>
+                    {% if user.is_admin %}
+                    <div class="col-span-2">
+                        <p class="text-dark-500">Kreator</p>
+                        <p class="font-medium text-dark-900">{{ design.creator.full_name }} ({{ design.creator.email }})
+                        </p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Products -->
+            <div class="bg-white rounded-2xl border border-dark-100 p-6">
+                <h2 class="text-lg font-semibold text-dark-900 mb-4">Produk Terpasang</h2>
+
+                {% if design_products %}
+                <div class="grid grid-cols-2 gap-3">
+                    {% for dp in design_products %}
+                    <div class="flex items-center gap-3 p-3 bg-dark-50 rounded-xl">
+                        <span class="text-2xl">
+                            {% if 'Kaos' in dp.product.name %}👕
+                            {% elif 'Hoodie' in dp.product.name %}🧥
+                            {% elif 'Crewneck' in dp.product.name %}👔
+                            {% elif 'Mug' in dp.product.name %}☕
+                            {% elif 'Keychain' in dp.product.name %}🔑
+                            {% else %}📦{% endif %}
+                        </span>
+                        <div class="min-w-0">
+                            <p class="font-medium text-dark-900 text-sm truncate">{{ dp.product.name }}</p>
+                            <p class="text-xs text-dark-500">Rp {{ dp.product.base_cost|floatformat:0 }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-dark-500 text-sm">Tidak ada produk yang dipilih</p>
+                {% endif %}
+            </div>
+
+            <!-- Rejection Reason -->
+            {% if design.status == 'rejected' and design.reject_reason %}
+            <div class="bg-red-50 border border-red-200 rounded-2xl p-6">
+                <div class="flex items-center gap-3 mb-2">
+                    <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <h3 class="font-semibold text-red-800">Alasan Penolakan</h3>
+                </div>
+                <p class="text-red-700">{{ design.reject_reason }}</p>
+            </div>
+            {% endif %}
+
+            <!-- Creator Actions (Delete) -->
+            {% if design.creator == user or user.is_admin %}
+            <div class="bg-white rounded-2xl border border-dark-100 p-6">
+                <h2 class="text-lg font-semibold text-dark-900 mb-4">Aksi</h2>
+                <a href="{% url 'designs:delete' design.pk %}"
+                    class="flex items-center justify-center gap-2 w-full px-4 py-3 border-2 border-red-200 text-red-600 rounded-xl font-medium hover:bg-red-50 hover:border-red-300 transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                    Hapus Desain
+                </a>
+            </div>
+            {% endif %}
+
+            <!-- Admin Actions -->
+            {% if user.is_admin and design.status == 'pending' %}
+            <div class="bg-dark-800 rounded-2xl p-6">
+                <h2 class="text-lg font-semibold text-white mb-4">Aksi Admin</h2>
+                <div class="flex gap-3">
+                    <a href="{% url 'designs:approve' design.pk %}"
+                        class="flex-1 bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl font-semibold text-center transition-all">
+                        ✅ Approve
+                    </a>
+                    <button onclick="document.getElementById('rejectModal').classList.remove('hidden')"
+                        class="flex-1 bg-red-500 hover:bg-red-600 text-white py-3 rounded-xl font-semibold transition-all">
+                        ❌ Reject
+                    </button>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Reject Modal -->
+{% if user.is_admin %}
+<div id="rejectModal"
+    class="hidden fixed inset-0 bg-dark-900/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6">
+        <h3 class="text-xl font-bold text-dark-900 mb-4">Tolak Desain</h3>
+        <form method="post" action="{% url 'designs:reject' design.pk %}">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-dark-700 mb-2">Alasan Penolakan</label>
+                <textarea name="reject_reason" rows="4" required
+                    class="w-full px-4 py-3 border border-dark-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    placeholder="Jelaskan alasan penolakan..."></textarea>
+            </div>
+            <div class="flex gap-3">
+                <button type="button" onclick="document.getElementById('rejectModal').classList.add('hidden')"
+                    class="flex-1 px-4 py-3 border border-dark-200 rounded-xl font-medium text-dark-700 hover:bg-dark-50 transition-all">
+                    Batal
+                </button>
+                <button type="submit"
+                    class="flex-1 px-4 py-3 bg-red-500 text-white rounded-xl font-semibold hover:bg-red-600 transition-all">
+                    Tolak Desain
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
