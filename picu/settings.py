@@ -30,6 +30,7 @@ ALLOWED_HOSTS = [
     '.railway.app',
     '.onrender.com',
     '.up.railway.app',
+    '.vercel.app',
 ]
 
 # CSRF trusted origins for production
@@ -37,6 +38,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://*.railway.app',
     'https://*.onrender.com',
     'https://*.up.railway.app',
+    'https://*.vercel.app',
 ]
 
 
